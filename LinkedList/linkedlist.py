@@ -14,62 +14,71 @@ class LinkedList:
     """
     def __str__(self):
         out = ""
-        cur = self.head
-        while cur.next:
-            out += str(cur.data) + " -> "
-            cur = cur.next
-        return out + str(cur.data)
+        tmp = self.head
+        while tmp.next:
+            out += str(tmp.data) + " -> "
+            tmp = tmp.next
+        return out + str(tmp.data)
     
 
     """
     Insert a new node to a given location.
+
+    Runtime: O(position)
+    Space: O(1)
     """
     def insert(self, data, position):
         node = Node(data)
-        cur = self.head
+        tmp = self.head
         if position > self.size:
             raise Exception("[ERROR]: Inserting to an out-of-bound index")
         #find the location
         while position > 0:
-            cur = cur.next
+            tmp = tmp.next
             position -= 1
 
         # change the pointers
-        node.next = cur.next
-        cur.next = node
+        node.next = tmp.next
+        tmp.next = node
 
         #increase the size
         self.size += 1
 
     """
     Search a node at a given location.
+
+    Runtime: O(position)
+    Space: O(1)
     """
     def search(self, position):
         if position >= self.size :
             raise Exception("[ERROR]: Searching an out-of-bound element")
-        cur = self.head.next
+        tmp = self.head.next
         while position > 0:
-            cur = cur.next
+            tmp = tmp.next
             position -= 1
-        return cur
+        return tmp
 
 
     """
     Delete a node at a given location and return the removed data. 
+
+    Runtime: O(position)
+    Space: O(1)
     """
     def delete_position(self, position):
         if position >= self.size:
             raise Exception("[ERROR]: Deleting an out-of-bound position")
 
         #find the location
-        cur = self.head
+        tmp = self.head
         while position > 0:
-            cur = cur.next
+            tmp = tmp.next
             position -= 1
 
         #get the removed data
-        removed = cur.data
-        cur.next = cur.next.next
+        removed = tmp.data
+        tmp.next = tmp.next.next
 
         #update the size of the linked list
         self.size -= 1
@@ -77,18 +86,21 @@ class LinkedList:
 
     """
     Delete specific value.
+
+    Runtime: O(position)
+    Space: O(1)
     """
     def delete_node(self, value):
-        prev, cur = self.head, self.head.next
-        while cur is not None:
-            if cur.data == value:
+        prev, tmp = self.head, self.head.next
+        while tmp is not None:
+            if tmp.data == value:
                 break
             #update pointers
-            prev = cur
-            cur = cur.next
+            prev = tmp
+            tmp = tmp.next
         
-        if cur:
-            prev.next = cur.next
+        if tmp:
+            prev.next = tmp.next
             self.size -= 1
         else:
             raise Exception("[ERROR]: value does not exist in the linked list!")
