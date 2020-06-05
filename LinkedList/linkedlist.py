@@ -1,10 +1,22 @@
+#######################################################
+## LINKED LIST IMPLEMENTATION
+#######################################################
+
+"""
+The fundamental component of a linked list. 
+"""
 class Node:
     def __init__(self, data, next=None):
         self.data = data
         self.next = next
     
-
+"""
+The linked list
+"""
 class LinkedList:
+    """
+    Initialize the linked list
+    """
     def __init__(self):
         self.head = Node("dummy")
         self.size = 0
