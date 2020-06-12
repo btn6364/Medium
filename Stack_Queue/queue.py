@@ -2,8 +2,8 @@ from node import Node
 
 class Queue:
     def __init__(self):
-        self.head = None
-        self.tail = None
+        self.front = None
+        self.rear = None
         self.size = 0
     
     """
@@ -13,7 +13,7 @@ class Queue:
         if self.isEmpty():
             return "None"
         out = ""
-        cur = self.head
+        cur = self.front
         while cur:
             out += str(cur.data) + "->"
             cur = cur.next
@@ -32,15 +32,31 @@ class Queue:
         return self.size == 0
     
     """
+    Return the front element of the queue.
+    """
+    def getFront(self):
+        if not self.front:
+            return None
+        return self.front.data
+
+    """
+    Return the rear element of the queue.
+    """
+    def getRear(self):
+        if not self.rear:
+            return None
+        return self.rear.data
+
+    """
     Add a new element to the end of the queue.
     """
     def enqueue(self, data):
         node = Node(data)
-        if self.tail is None:
-            self.head = node
+        if self.rear is None:
+            self.front = node
         else:
-            self.tail.next = node
-        self.tail = node
+            self.rear.next = node
+        self.rear = node
         self.size += 1
 
     """
@@ -49,30 +65,16 @@ class Queue:
     def dequeue(self):
         if self.isEmpty():
             raise Exception("[ERROR]: dequeue an empty queue!")
-        removed = self.head.data
-        if self.head is self.tail:
-            self.head = None
-            self.tail = None
+        removed = self.front.data
+        if self.front is self.rear:
+            self.front = None
+            self.rear = None
         else:
-            self.head = self.head.next
+            self.front = self.front.next
         self.size -= 1
         return removed
 
-    """
-    Return the head element of the queue.
-    """
-    def head(self):
-        if not self.head:
-            return None
-        return self.head.data
-
-    """
-    Return the tail element of the queue.
-    """
-    def tail(self):
-        if not self.tail:
-            return None
-        return self.tail.data
+   
 
 def test():
     queue = Queue()
@@ -81,7 +83,7 @@ def test():
         queue.enqueue(i)
     print(f"Queue: {queue}", end="\n\n")
 
-    for _ in range(5):
+    for _ in range(3):
         print(f"Dequeue: {queue.dequeue()}")
     print(f"Queue: {queue}")
 
