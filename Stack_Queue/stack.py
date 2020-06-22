@@ -5,7 +5,7 @@ class Stack:
     Initialize the stack 
     """
     def __init__(self):
-        self.head = None
+        self.top = None
         self.size = 0
 
     """
@@ -15,7 +15,7 @@ class Stack:
         if self.isEmpty():
             return "None"
         out = ""
-        cur = self.head
+        cur = self.top
         while cur:
             out += str(cur.data) + "->"
             cur = cur.next
@@ -41,8 +41,8 @@ class Stack:
         node = Node(data)
         
         #insert it between the dummy node and the actual first node
-        node.next = self.head
-        self.head = node
+        node.next = self.top
+        self.top = node
 
         #increase size
         self.size += 1
@@ -54,10 +54,10 @@ class Stack:
         if self.isEmpty():
             raise Exception("[ERROR]: Popping from an empty stack!")
         #get the removed element
-        removed = self.head
+        removed = self.top
 
         #manipulate the pointers
-        self.head = self.head.next
+        self.top = self.top.next
         removed.next = None
 
         #decrease size
@@ -73,7 +73,7 @@ class Stack:
         if self.isEmpty():
             raise Exception("[ERROR]: Peeking from an empty stack!")
 
-        return self.head.data
+        return self.top.data
 
 """
 Test all the functions
